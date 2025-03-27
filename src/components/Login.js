@@ -1,44 +1,37 @@
-// src/components/Login.js
-import React, { useState } from 'react';
-import { loginUser } from '../api';
+import React, { useState } from "react";
+import "../styles.css";  
 
-const Login = () => {
-  const [username, setUsername] = useState('');
-  const [password, setPassword] = useState('');
-  const [message, setMessage] = useState('');
+function Login() {
+    const [username, setUsername] = useState("");
+    const [password, setPassword] = useState("");
 
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-    const response = await loginUser({ username, password });
-    if (response.success) {
-      localStorage.setItem('token', response.token);
-      setMessage('Login successful');
-    } else {
-      setMessage(response.message);
-    }
-  };
+    const handleLogin = (e) => {
+        e.preventDefault();
+        console.log("Logging in:", username);
+    };
 
-  return (
-    <div>
-      <h2>Login</h2>
-      <form onSubmit={handleSubmit}>
-        <input
-          type="text"
-          placeholder="Username"
-          value={username}
-          onChange={(e) => setUsername(e.target.value)}
-        />
-        <input
-          type="password"
-          placeholder="Password"
-          value={password}
-          onChange={(e) => setPassword(e.target.value)}
-        />
-        <button type="submit">Login</button>
-      </form>
-      {message && <p>{message}</p>}
-    </div>
-  );
-};
+    return (
+        <div className="login-container">
+            <h2>Login</h2>
+            <form onSubmit={handleLogin}>
+                <input
+                    type="text"
+                    placeholder="Username"
+                    value={username}
+                    onChange={(e) => setUsername(e.target.value)}
+                    required
+                />
+                <input
+                    type="password"
+                    placeholder="Password"
+                    value={password}
+                    onChange={(e) => setPassword(e.target.value)}
+                    required
+                />
+                <button type="submit">Login</button>
+            </form>
+        </div>
+    );
+}
 
 export default Login;
